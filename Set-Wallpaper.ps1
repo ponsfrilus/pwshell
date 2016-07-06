@@ -666,10 +666,12 @@ Boot Time: $BootTime
 }
 
 Function Download-images{
-    Param(  [Parameter()]
-            [string]$Path
-    )
-	
+	Param(  [Parameter()]
+		[string]$Path
+	)
+	if (!(Test-Path $Path)) {
+		mkdir $Path
+	}
 	# http://justinmaller.com/wallpaper/
 
 	$images = @("WP_Chaos_Clown-2560x1440_00000.jpg", 
@@ -706,7 +708,7 @@ Function Set-Wallpaper {
     )
     Begin {
 	
-		Download-images -Path $PicturesPath
+	Download-images -Path $PicturesPath
         # Select Background colour
         if ($Source -eq "Colour") {
             $BGColour = $Selection
